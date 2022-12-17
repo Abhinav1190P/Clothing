@@ -1,26 +1,31 @@
 import { useState } from "react"
-import { createUserDocumentFromAuth} from '../../utils/firebase/firebase.utils'
+import { createUserDocumentFromAuth } from '../../utils/firebase/firebase.utils'
 import FormInput from "../form-input/form-input.component"
 import {
     signInWithGooglePopup,
     signInAuthUserWithEmailAndPassword
-    } from '../../utils/firebase/firebase.utils'
+} from '../../utils/firebase/firebase.utils'
 import './sign-in-form.styles.scss'
 import Button from "../button/buttom.component"
+
+
+
 const defaultFormFields = {
-    email:'',
-    password:'', 
+    email: '',
+    password: '',
 }
 
 
 const SignInForm = () => {
 
-    const [formFields,setFormFields] = useState(defaultFormFields)
-    const {email,password} = formFields
+    const [formFields, setFormFields] = useState(defaultFormFields)
+    const { email, password } = formFields
+
+
 
     const handleChage = (event) => {
-        const {name,value} = event.target
-        setFormFields({...formFields,[name]:value})
+        const { name, value } = event.target
+        setFormFields({ ...formFields, [name]: value })
     }
 
     const resetFormFields = () => {
@@ -28,50 +33,52 @@ const SignInForm = () => {
     }
 
 
-    
+
     const SignInWithGoogle = async () => {
 
-        const {user} = await signInWithGooglePopup();
-        createUserDocumentFromAuth(user)
-        }
+        await signInWithGooglePopup();
+        
+    }
 
     const handleSubmit = async (event) => {
         event.preventDefault()
 
         try {
-            const response = await signInAuthUserWithEmailAndPassword(email,password)
-            console.log(response)
+            const {user} = await signInAuthUserWithEmailAndPassword(email, password)
+           
+
+
         } catch (error) {
-           if(error.code === "auth/wrong-password"){
-            alert("Incorrect password, enter again")
-           }
+            if (error.code === "auth/wrong-password") {
+                alert("Incorrect password, enter again")
+            }
         }
-    
+
     }
 
-    return(
+    return (
         <div className="sign-up-container">
             <h2>Already have an account?</h2>
             <span>
                 Sign up with your email and password
             </span>
             <form onSubmit={handleSubmit}>
-        
-               
-                <FormInput label="Email" type={'email'} required onChange={handleChage} name="email" value={email}/>
 
-                
-                <FormInput label="Password" type={'password'} required onChange={handleChage} name="password" value={password}/>
+
+                <FormInput label="Email" type={'email'} required onChange={handleChage} name="email" value={email} />
+
+
+                <FormInput label="Password" type={'password'} required onChange={handleChage} name="password" value={password} />
 
                 <div className="buttons-container">
-                <Button type="submit">
-                    Sign in
-                </Button>
-                <Button type="button" buttonType={'google'} onClick={SignInWithGoogle}>
-                    Google sign in
-                </Button>
+                    <Button type="submit">
+                        Sign in
+                    </Button>
+                    <Button type="button" buttonType={'google'} onClick={SignInWithGoogle}>
+                        Google sign in
+                    </Button>
                 </div>
-                
+
             </form>
         </div>
     )

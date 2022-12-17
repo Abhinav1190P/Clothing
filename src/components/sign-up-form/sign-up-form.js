@@ -3,6 +3,9 @@ import {createAuthUserWithEmail, createUserDocumentFromAuth} from '../../utils/f
 import FormInput from "../form-input/form-input.component"
 import './sign-up-form.styles.scss'
 import Button from "../button/buttom.component"
+import { UserContext } from "../../contexts/user.context"
+
+
 const defaultFormFields = {
     displayName:'',
     email:'',
@@ -15,6 +18,9 @@ const SignUpForm = () => {
 
     const [formFields,setFormFields] = useState(defaultFormFields)
     const {displayName,email,password,confirmPassword} = formFields
+
+    
+    
 
     const handleChage = (event) => {
         const {name,value} = event.target
