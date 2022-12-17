@@ -1,15 +1,14 @@
 import { useState } from "react"
 import {createAuthUserWithEmail, createUserDocumentFromAuth} from '../../utils/firebase/firebase.utils'
-
+import FormInput from "../form-input/form-input.component"
+import './sign-up-form.styles.scss'
+import Button from "../button/buttom.component"
 const defaultFormFields = {
     displayName:'',
     email:'',
     password:'',
     confirmPassword:''  
 }
-
-
-
 
 
 const SignUpForm = () => {
@@ -48,34 +47,29 @@ const SignUpForm = () => {
     }
 
     return(
-        <div>
-            <h1>
+        <div className="sign-up-container">
+            <h2>Don't have and account?</h2>
+            <span>
                 Sign up with your email and password
-            </h1>
+            </span>
             <form onSubmit={handleSubmit}>
-                <label>
-                    Display Name
-                </label>
-                <input type={'text'} required onChange={handleChage} name="displayName" value={displayName}/>
+               
+                <FormInput 
+                label="Display Name"
+                type={'text'} required onChange={handleChage} name="displayName" value={displayName}/>
 
-                <label>
-                    Email
-                </label>
-                <input type={'email'} required onChange={handleChage} name="email" value={email}/>
+               
+                <FormInput label="Email" type={'email'} required onChange={handleChage} name="email" value={email}/>
 
-                <label>
-                    Password
-                </label>
-                <input type={'password'} required onChange={handleChage} name="password" value={password}/>
+                
+                <FormInput label="Password" type={'password'} required onChange={handleChage} name="password" value={password}/>
 
-                <label>
-                    Confirm password
-                </label>
-                <input type={'password'} required onChange={handleChage} name="confirmPassword" value={confirmPassword}/>
+                
+                <FormInput label="Confirm password" type={'password'} required onChange={handleChage} name="confirmPassword" value={confirmPassword}/>
  
-                <button type="submit">
+                <Button type="submit">
                     Sign up
-                </button>
+                </Button>
             </form>
         </div>
     )
