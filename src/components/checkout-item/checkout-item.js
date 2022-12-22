@@ -4,7 +4,7 @@ import './checkout-item.styles.scss'
 
 const CheckoutItem = ({cartItem}) => {
     const {name, imageUrl, price, quantity} = cartItem
-    const {clearItemFromCart, addItemToCart, removeItemToCart} = useContext(CartContext)
+    const {clearItemFromCart, addItemToCart, removeItemToCart, cartTotal} = useContext(CartContext)
 
     const clearItemHandler = () => clearItemFromCart(cartItem)
 
